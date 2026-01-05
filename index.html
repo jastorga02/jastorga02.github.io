@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jorge Astorga | Desarrollador</title>
+  <meta name="description" content="Sitio simple de desarrollador - Jorge Astorga. Desarrollador de la app de Charles Spurgeon en español." />
+  <meta name="theme-color" content="#0b1220" />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111c35;
+      --text:#eaf0ff;
+      --muted:#b8c2e0;
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:16px;
+      --grad: linear-gradient(90deg, #7c9cff, #a78bfa, #22d3ee);
+      --focus: 0 0 0 3px rgba(124,156,255,.35);
+      --max: 980px;
+    }
+    [data-theme="light"]{
+      --bg:#f7f9ff;
+      --card:#ffffff;
+      --text:#0b1220;
+      --muted:#4b5563;
+      --line:rgba(11,18,32,.12);
+      --shadow: 0 14px 30px rgba(11,18,32,.12);
+      --focus: 0 0 0 3px rgba(34,211,238,.25);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(124,156,255,.22), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(34,211,238,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:24px}
+    .skip{
+      position:absolute; left:-9999px; top:auto;
+      width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:16px; top:16px; width:auto; height:auto;
+      background:var(--card); padding:10px 12px; border-radius:10px;
+      box-shadow:var(--shadow); outline:none;
+    }
+
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width:0;
+    }
+    .mark{
+      width:42px; height:42px; border-radius:12px;
+      display:grid; place-items:center;
+      background: color-mix(in oklab, var(--card) 85%, transparent);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      font-weight:800;
+    }
+    .id{
+      display:flex; flex-direction:column; min-width:0;
+    }
+    .id strong{font-size:15px; letter-spacing:.2px}
+    .id span{font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+    nav{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlink{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .navlink:hover{border-color:var(--line); color:var(--text)}
+    .btn{
+      appearance:none; border:1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 88%, transparent);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:13px;
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:focus{outline:none; box-shadow:var(--focus)}
+    .btn--primary{
+      border-color:transparent;
+      background: var(--grad);
+      color:#0b1220;
+      font-weight:700;
+    }
+    .btn--ghost{
+      background:transparent;
+    }
+
+    .hero{
+      padding:28px 0 10px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      nav{justify-content:flex-start}
+    }
+    .card{
+      background: color-mix(in oklab, var(--card) 92%, transparent);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    h1{
+      margin:10px 0 8px;
+      font-size:34px;
+      line-height:1.15;
+      letter-spacing:-.4px;
+    }
+    .grad{
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip:text;
+      color:transparent;
+    }
+    .lead{color:var(--muted); margin:0 0 14px}
+    .pill{
+      display:inline-flex;
+      gap:10px; align-items:center;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      background: color-mix(in oklab, var(--card) 75%, transparent);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: #22d3ee;
+      box-shadow: 0 0 0 4px rgba(34,211,238,.15);
+    }
+
+    .stack{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      background: color-mix(in oklab, var(--card) 78%, transparent);
+    }
+
+    .section{padding:14px 0}
+    .section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+    .muted{color:var(--muted)}
+    .list{
+      margin:0; padding:0; list-style:none;
+      display:grid; gap:10px;
+    }
+    .row{
+      display:flex; justify-content:space-between; align-items:flex-start;
+      gap:16px;
+      padding:12px 0;
+      border-top:1px solid var(--line);
+    }
+    .row:first-child{border-top:0; padding-top:0}
+    .meta{min-width:220px; text-align:right; color:var(--muted); font-size:13px}
+    @media (max-width: 700px){
+      .row{flex-direction:column}
+      .meta{text-align:left; min-width:0}
+    }
+    .role{font-weight:700}
+    .where{color:var(--muted); font-size:13px}
+    .bullets{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+    .bullets li{margin:4px 0}
+    .footer{
+      border-top:1px solid var(--line);
+      margin-top:18px;
+      padding:18px 0 36px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .kvs{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 700px){
+      .kvs{grid-template-columns:1fr}
+    }
+    .kv{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: color-mix(in oklab, var(--card) 86%, transparent);
+    }
+    .kv b{display:block; font-size:12px; color:var(--muted); margin-bottom:6px}
+    .kv span{display:block; font-size:14px}
+    .small{font-size:13px}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">{ }</div>
+        <div class="id">
+          <strong>Jorge Astorga</strong>
+          <span>Líder de Servicio (NTT DATA) · Chile</span>
+        </div>
+      </div>
+
+      <nav aria-label="Navegación">
+        <a class="navlink" href="#sobre-mi">Sobre mí</a>
+        <a class="navlink" href="#experiencia">Experiencia</a>
+        <a class="navlink" href="#educacion">Educación</a>
+        <a class="navlink" href="#contacto">Contacto</a>
+        <button class="btn btn--ghost" id="themeBtn" type="button" aria-label="Cambiar tema">
+          <span id="themeIcon" aria-hidden="true">☾</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero">
+      <div class="container grid">
+        <div class="card">
+          <span class="pill"><span class="dot" aria-hidden="true"></span>Perfil profesional</span>
+          <h1>
+            Desarrollador y líder de servicio, con foco en <span class="grad">Java</span> y soluciones de software.
+          </h1>
+          <p class="lead">
+            Soy <strong>Jorge Astorga</strong>. He trabajado en liderazgo/gestión y docencia en el área TI, y
+            <strong>desarrollé la app de Charles Spurgeon en español</strong>.
+          </p>
+
+          <div class="stack" aria-label="Aptitudes principales">
+            <span class="chip">Java</span>
+            <span class="chip">Spring Boot</span>
+            <span class="chip">CSS</span>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <a class="btn btn--primary" href="#experiencia">Ver experiencia</a>
+            <a class="btn" href="#contacto">Contactar</a>
+          </div>
+
+          <div style="margin-top:16px" class="kvs" aria-label="Resumen">
+            <div class="kv"><b>Rol actual</b><span>Líder del Servicio · NTT DATA</span></div>
+            <div class="kv"><b>Idioma</b><span>Inglés</span></div>
+            <div class="kv"><b>Certificaciones</b><span>Scrum (SMPC v2020 y SFC)</span></div>
+            <div class="kv"><b>Ubicación</b><span>Chile</span></div>
+          </div>
+        </div>
+
+        <aside class="card" id="contacto">
+          <h2>Contacto</h2>
+          <div class="small muted">Datos desde tu CV</div>
+          <div style="margin-top:10px; display:grid; gap:10px">
+            <div class="kv">
+              <b>Teléfono</b>
+              <span><a href="tel:+56946580613" style="text-decoration:none">+56 9 4658 0613</a></span>
+            </div>
+            <div class="kv">
+              <b>Email</b>
+              <span><a href="mailto:jastorga02@gmail.com" style="text-decoration:none">jastorga02@gmail.com</a></span>
+            </div>
+            <div class="kv">
+              <b>LinkedIn</b>
+              <span>
+                <a href="https://www.linkedin.com/in/jorge-astorga-7343baa3" target="_blank" rel="noreferrer" style="text-decoration:none">
+                  /in/jorge-astorga-7343baa3
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn" href="mailto:jastorga02@gmail.com?subject=Contacto%20desde%20tu%20sitio">Enviar correo</a>
+            <a class="btn btn--ghost" href="#sobre-mi">Leer perfil</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="sobre-mi">
+      <div class="container">
+        <div class="card">
+          <h2>Sobre mí</h2>
+          <p class="muted" style="margin:0">
+            Mi nombre es Jorge. Me caracterizo por el esfuerzo, la innovación en el trabajo y el desarrollo de la creatividad.
+            He trabajado en liderazgo, gestión de personas, gestión operativa y negociación con clientes, además de docencia en el área de informática.
+          </p>
+          <p class="muted" style="margin:10px 0 0">
+            También: <strong>desarrollé la app de Charles Spurgeon en español</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experiencia">
+      <div class="container">
+        <div class="card">
+          <h2>Experiencia</h2>
+
+          <div class="list" role="list">
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Líder del Servicio · NTT DATA Europe & Latam</div>
+                <div class="where">Chile</div>
+              </div>
+              <div class="meta">agosto 2021 – Presente</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Relatoría Bootcamp Fullstack Java · Coding Dojo Latam</div>
+                <div class="where">Gran Santiago, Región Metropolitana de Santiago, Chile</div>
+              </div>
+              <div class="meta">abril 2023 – septiembre 2023</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Relatoría Curso Java Full Stack · Talento Digital para Chile (Sence)</div>
+                <div class="where">Temuco, Araucanía, Chile</div>
+                <ul class="bullets">
+                  <li>Formación de desarrolladores Full Stack Java.</li>
+                </ul>
+              </div>
+              <div class="meta">septiembre 2019 – septiembre 2022</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Docente (Lenguajes de programación) · Universidad de la Frontera</div>
+                <div class="where">Temuco, Chile</div>
+              </div>
+              <div class="meta">enero 2019 – septiembre 2022</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Docente · CFT Teodoro Wickel (Universidad de la Frontera)</div>
+                <div class="where">Temuco, Araucanía, Chile</div>
+                <ul class="bullets">
+                  <li>Base de Datos</li>
+                  <li>Inteligencia de Negocios</li>
+                  <li>Integración al campo ocupacional</li>
+                  <li>Innovación para el Emprendimiento</li>
+                  <li>Laboratorio de Informática</li>
+                  <li>Taller de Desarrollo de Videojuegos</li>
+                  <li>Programación de aplicaciones móviles en Android</li>
+                  <li>Programación Orientada a Objetos en Java</li>
+                </ul>
+              </div>
+              <div class="meta">enero 2017 – septiembre 2022</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Jefe de Proyecto · Softpatagonia</div>
+                <div class="where">Temuco, Araucanía, Chile</div>
+                <ul class="bullets">
+                  <li>Toma de requerimientos, estimación y planificación.</li>
+                  <li>Análisis y diseño.</li>
+                  <li>Gestión de cliente y equipo de trabajo.</li>
+                </ul>
+              </div>
+              <div class="meta">2017 – junio 2021</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Jefe de Proyectos · everis Chile</div>
+              </div>
+              <div class="meta">enero 2006 – diciembre 2017</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Analista · everis Chile</div>
+              </div>
+              <div class="meta">2006 – 2008</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Supervisor Académico de Proyecto CAR (Centro de Alto Rendimiento) · Universidad de la Frontera</div>
+                <div class="where">Temuco, Chile</div>
+              </div>
+              <div class="meta">mayo 2007 – diciembre 2009</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Docente (asignaturas y electivos) · Universidad de la Frontera</div>
+              </div>
+              <div class="meta">julio 2008 – junio 2009</div>
+            </div>
+
+            <div class="row" role="listitem">
+              <div>
+                <div class="role">Analista-Programador · Universidad de la Frontera</div>
+                <div class="where">Temuco, Araucanía, Chile</div>
+              </div>
+              <div class="meta">mayo 2007 – julio 2007</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line)">
+            <h2 style="margin-bottom:8px">Proyecto mencionado</h2>
+            <p class="muted" style="margin:0">
+              <strong>App de Charles Spurgeon en español</strong> — desarrollo de la aplicación (mencionado a solicitud).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="educacion">
+      <div class="container">
+        <div class="grid">
+          <div class="card">
+            <h2>Educación</h2>
+            <div class="list" role="list">
+              <div class="row" role="listitem">
+                <div>
+                  <div class="role">Ingeniero Ejecución en Informática · Universidad de la Frontera</div>
+                </div>
+                <div class="meta">2002 – 2006</div>
+              </div>
+              <div class="row" role="listitem">
+                <div>
+                  <div class="role">Ingeniero Civil Industrial · Universidad Autónoma de Chile</div>
+                </div>
+                <div class="meta">2012 – 2014</div>
+              </div>
+              <div class="row" role="listitem">
+                <div>
+                  <div class="role">Ingeniero Ejecución en informática (Ing. informática) · Universidad de la Frontera</div>
+                </div>
+                <div class="meta">2001 – 2006</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Habilidades y certificaciones</h2>
+
+            <div class="kvs" style="margin-top:6px">
+              <div class="kv">
+                <b>Aptitudes principales</b>
+                <span>CSS · Spring Boot · Java</span>
+              </div>
+              <div class="kv">
+                <b>Idioma</b>
+                <span>Inglés</span>
+              </div>
+              <div class="kv">
+                <b>Certificaciones</b>
+                <span>Certificado Profesional de Scrum Master SMPC v2020</span>
+              </div>
+              <div class="kv">
+                <b>Certificaciones</b>
+                <span>Scrum Foundation Professional Certificate</span>
+              </div>
+            </div>
+
+            <p class="muted small" style="margin:12px 0 0">
+              Nota: Este sitio es estático y funciona directo en GitHub Pages (solo sube este archivo como <code>index.html</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="container">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center">
+          <div>© <span id="year"></span> Jorge Astorga</div>
+          <div class="muted">Desarrollé la app de Charles Spurgeon en español</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Año en footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Tema claro/oscuro (opcional, sin dependencias)
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+    const icon = document.getElementById("themeIcon");
+
+    function setTheme(mode){
+      if(mode === "light"){
+        root.setAttribute("data-theme","light");
+        icon.textContent = "☀";
+      } else {
+        root.removeAttribute("data-theme");
+        icon.textContent = "☾";
+      }
+      try { localStorage.setItem("theme", mode); } catch(e) {}
+    }
+
+    const saved = (() => { try { return localStorage.getItem("theme"); } catch(e){ return null; } })();
+    if(saved === "light") setTheme("light");
+
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+      setTheme(current === "light" ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>
